@@ -12,7 +12,7 @@ permissions:
 jobs:
   test-and-scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 180
 
     steps:
       - name: Checkout repository
@@ -32,6 +32,15 @@ jobs:
           key: dependency-check-${{ runner.os }}-${{ hashFiles('pom.xml') }}
           restore-keys: |
             dependency-check-${{ runner.os }}-
+
+      - name: Validate NVD API key
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+        run: |
+          if [ -z "$NVD_API_KEY" ]; then
+            echo "::error::Repository secret NVD_API_KEY is missing"
+            exit 1
+          fi
 
       - name: Run tests, SpotBugs SAST and OWASP Dependency-Check SCA
         env:

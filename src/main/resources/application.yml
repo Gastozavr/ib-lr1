@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/secure-api
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  h2:
+    console:
+      enabled: false
+
+server:
+  error:
+    include-message: never
+    include-stacktrace: never
+
+app:
+  jwt:
+    secret-base64: ${APP_JWT_SECRET_BASE64}
+    lifetime-minutes: 15

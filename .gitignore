@@ -1,0 +1,10 @@
+target/
+data/
+.idea/
+.vscode/
+*.iml
+*.log
+.DS_Store
+.env
+dependency-check-data/
+.cache/
